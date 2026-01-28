@@ -1,73 +1,198 @@
-# Welcome to your Lovable project
+🏥 Hospital Management System
 
-## Project info
+Major Project | B.Tech Computer Science & Engineering
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+📌 Project Overview
 
-## How can I edit this code?
+The Hospital Management System (HMS) is a full-stack, role-based web application designed to automate and digitize the daily operations of hospitals and healthcare institutions.
+It efficiently manages patients, doctors, appointments, medical records, billing, and reporting, reducing manual paperwork and improving accuracy, security, and operational efficiency.
 
-There are several ways of editing your application.
+This project is developed as a final-year major project and follows real-world Indian hospital workflows similar to AIIMS, Apollo, and Fortis Healthcare.
 
-**Use Lovable**
+🎯 Objectives
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+Digitize hospital administrative and clinical processes
 
-Changes made via Lovable will be committed automatically to this repo.
+Reduce paperwork and human errors
 
-**Use your preferred IDE**
+Improve patient experience and service efficiency
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+Maintain secure and centralized medical records
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+Provide role-based access and accountability
 
-Follow these steps:
+Make the system scalable and production-ready
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+👥 User Roles & Access Control
+🔑 Admin
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+Manage doctors, departments, and staff
 
-# Step 3: Install the necessary dependencies.
-npm i
+View hospital statistics and KPIs
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+Generate monthly and yearly reports
 
-**Edit a file directly in GitHub**
+Control system configuration
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+👨‍⚕️ Doctor
 
-**Use GitHub Codespaces**
+View assigned appointments
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+Update diagnosis and prescriptions
 
-## What technologies are used for this project?
+Access patient medical history
 
-This project is built with:
+Manage follow-up visits
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+🧾 Receptionist
 
-## How can I deploy this project?
+Register new patients
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+Book and manage appointments
 
-## Can I connect a custom domain to my Lovable project?
+Handle admissions and discharges
 
-Yes, you can!
+Generate billing and invoices
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+🧑‍🦽 Patient
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+Register and login securely
+
+Book appointments based on doctor availability
+
+View prescriptions and medical history
+
+Download invoices and reports
+
+⚙️ Core Modules
+🧾 Patient Management
+
+Unique patient ID generation
+
+Personal details and medical history
+
+Admission and discharge tracking
+
+👨‍⚕️ Doctor & Department Management
+
+Doctor profiles and specializations
+
+Department allocation
+
+Availability scheduling
+
+📅 Appointment Management
+
+Slot-based appointment booking
+
+Conflict prevention (no double booking)
+
+Appointment lifecycle tracking
+
+🧠 Electronic Medical Records (EMR)
+
+Diagnosis records
+
+Prescriptions
+
+Lab test reports
+
+💰 Billing & Payment
+
+Automatic bill calculation
+
+Consultation and test charges
+
+Invoice generation and payment status
+
+🔐 Security Features
+
+Secure authentication using JWT / session-based login
+
+Password encryption and hashing
+
+Role-based authorization (RBAC)
+
+Input validation and exception handling
+
+Protection against SQL Injection and XSS
+
+Activity and audit logs
+
+🛠 Technology Stack
+Layer	Technology
+Backend	Java, Spring Boot
+Database	MySQL
+ORM	Hibernate / JPA
+API	RESTful Web Services
+Frontend	Dashboard-based Web UI
+Security	Spring Security, JWT
+Build Tool	Maven
+Deployment	Local / Docker (optional)
+🏗 System Architecture
+Client (Web UI)
+      ↓
+REST Controller Layer
+      ↓
+Service Layer (Business Logic)
+      ↓
+Repository Layer (JPA/Hibernate)
+      ↓
+MySQL Database
+
+
+The system follows a layered architecture to ensure maintainability, scalability, and separation of concerns.
+
+🗄 Database Design
+
+Key tables used in the system:
+
+users
+
+patients
+
+doctors
+
+departments
+
+appointments
+
+medical_records
+
+billing
+
+payments
+
+audit_logs
+
+The database is normalized to reduce redundancy and maintain data integrity.
+
+🧪 Testing & Validation
+
+Unit testing for core services
+
+Input validation on all forms
+
+Error handling using custom exceptions
+
+Sample test data for demo and viva
+
+📊 UI / UX Highlights
+
+Role-specific dashboards
+
+Professional hospital-style design
+
+Responsive layout (desktop & tablet)
+
+Search, filter, and pagination in tables
+
+📈 Future Enhancements
+
+Telemedicine (video consultation)
+
+SMS / Email appointment reminders
+
+AI-based disease prediction
+
+Mobile application integration
