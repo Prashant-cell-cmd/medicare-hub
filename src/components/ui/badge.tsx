@@ -12,6 +12,17 @@ const badgeVariants = cva(
         secondary: "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80",
         destructive: "border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80",
         outline: "text-foreground",
+        // Status badges for appointments/billing
+        pending: "border-transparent bg-warning/10 text-warning",
+        approved: "border-transparent bg-info/10 text-info",
+        completed: "border-transparent bg-success/10 text-success",
+        cancelled: "border-transparent bg-destructive/10 text-destructive",
+        // Soft variants
+        soft: "border-transparent bg-primary/10 text-primary",
+        "soft-success": "border-transparent bg-success/10 text-success",
+        "soft-warning": "border-transparent bg-warning/10 text-warning",
+        "soft-info": "border-transparent bg-info/10 text-info",
+        "soft-destructive": "border-transparent bg-destructive/10 text-destructive",
       },
     },
     defaultVariants: {
