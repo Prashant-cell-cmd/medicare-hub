@@ -93,7 +93,11 @@ export function DashboardSidebar() {
       {/* Navigation */}
       <nav className="flex-1 p-4 space-y-1">
         {navItems.map((item) => {
-          const isActive = location.pathname === item.href;
+          // Check if current path matches exactly or is a sub-route of this nav item
+          const isExactMatch = location.pathname === item.href;
+          const isSubRoute = item.href !== `/${user.role}` && location.pathname.startsWith(item.href);
+          const isActive = isExactMatch || isSubRoute;
+          
           return (
             <Link
               key={item.href}
