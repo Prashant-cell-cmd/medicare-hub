@@ -2,10 +2,10 @@ import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import {
   LayoutDashboard,
   Users,
-  UserCog,
   Calendar,
   FileText,
   CreditCard,
@@ -22,8 +22,10 @@ import {
   History,
   ChevronLeft,
   ChevronRight,
+  Menu,
 } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface NavItem {
   label: string;
@@ -70,36 +72,19 @@ const navItemsByRole: Record<string, NavItem[]> = {
   ],
 };
 
-export function DashboardSidebar() {
-  const { user, logout } = useAuth();
-  const location = useLocation();
-  const [collapsed, setCollapsed] = useState(false);
-
-  if (!user) return null;
-
-  const navItems = navItemsByRole[user.role] || [];
-
+function SidebarContent({ collapsed, user, navItems, location, logout, onNavigate }: {
+  collapsed: boolean;
+  user: { name: string; role: string };
+  navItems: NavItem[];
+  location: { pathname: string };
+  logout: () => void;
+  onNavigate?: () => void;
+}) {
   return (
-    <aside
-      className={cn(
-        'relative flex flex-col min-h-screen transition-all duration-300 ease-in-out',
-        collapsed ? 'w-[72px]' : 'w-64'
-      )}
-      style={{
-        background: 'linear-gradient(180deg, hsl(215 70% 18%) 0%, hsl(215 70% 14%) 50%, hsl(220 60% 12%) 100%)',
-      }}
-    >
-      {/* Collapse toggle */}
-      <button
-        onClick={() => setCollapsed(!collapsed)}
-        className="absolute -right-3 top-20 z-10 w-6 h-6 rounded-full bg-primary border-2 border-background flex items-center justify-center text-primary-foreground shadow-lg hover:scale-110 transition-transform"
-      >
-        {collapsed ? <ChevronRight className="w-3.5 h-3.5" /> : <ChevronLeft className="w-3.5 h-3.5" />}
-      </button>
-
+    <>
       {/* Logo */}
       <div className={cn('p-5 border-b border-white/10', collapsed && 'px-3')}>
-        <Link to={`/${user.role}`} className="flex items-center gap-3">
+        <Link to={`/${user.role}`} className="flex items-center gap-3" onClick={onNavigate}>
           <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
             style={{ background: 'linear-gradient(135deg, hsl(175 60% 45%), hsl(175 80% 55%))' }}
           >
@@ -131,6 +116,7 @@ export function DashboardSidebar() {
               key={item.href}
               to={item.href}
               title={collapsed ? item.label : undefined}
+              onClick={onNavigate}
               className={cn(
                 'group flex items-center gap-3 rounded-lg text-sm font-medium transition-all duration-200 relative',
                 collapsed ? 'px-0 py-3 justify-center' : 'px-3 py-2.5',
@@ -139,21 +125,17 @@ export function DashboardSidebar() {
                   : 'text-white/60 hover:text-white hover:bg-white/5'
               )}
             >
-              {/* Active indicator bar */}
               {isActive && (
                 <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 rounded-r-full"
                   style={{ background: 'linear-gradient(180deg, hsl(175 60% 55%), hsl(175 80% 45%))' }}
                 />
               )}
-              {/* Active background glow */}
               {isActive && (
                 <div className="absolute inset-0 rounded-lg bg-white/8" />
               )}
               <div className={cn(
                 'flex items-center justify-center w-8 h-8 rounded-lg shrink-0 transition-all duration-200 relative z-10',
-                isActive
-                  ? 'bg-white/15 shadow-sm'
-                  : 'group-hover:bg-white/8'
+                isActive ? 'bg-white/15 shadow-sm' : 'group-hover:bg-white/8'
               )}>
                 <item.icon className={cn(
                   'w-[18px] h-[18px] transition-colors',
@@ -201,6 +183,86 @@ export function DashboardSidebar() {
           {!collapsed && 'Logout'}
         </Button>
       </div>
+    </>
+  );
+}
+
+export function MobileMenuTrigger() {
+  const { user } = useAuth();
+  const location = useLocation();
+  const { logout } = useAuth();
+  const [open, setOpen] = useState(false);
+
+  // Close on route change
+  useEffect(() => {
+    setOpen(false);
+  }, [location.pathname]);
+
+  if (!user) return null;
+
+  const navItems = navItemsByRole[user.role] || [];
+
+  return (
+    <Sheet open={open} onOpenChange={setOpen}>
+      <SheetTrigger asChild>
+        <Button variant="ghost" size="icon" className="md:hidden">
+          <Menu className="w-5 h-5" />
+        </Button>
+      </SheetTrigger>
+      <SheetContent side="left" className="p-0 w-64 border-0" style={{
+        background: 'linear-gradient(180deg, hsl(215 70% 18%) 0%, hsl(215 70% 14%) 50%, hsl(220 60% 12%) 100%)',
+      }}>
+        <div className="flex flex-col h-full">
+          <SidebarContent
+            collapsed={false}
+            user={user}
+            navItems={navItems}
+            location={location}
+            logout={logout}
+            onNavigate={() => setOpen(false)}
+          />
+        </div>
+      </SheetContent>
+    </Sheet>
+  );
+}
+
+export function DashboardSidebar() {
+  const { user, logout } = useAuth();
+  const location = useLocation();
+  const [collapsed, setCollapsed] = useState(false);
+  const isMobile = useIsMobile();
+
+  if (!user) return null;
+  if (isMobile) return null; // Mobile uses Sheet via MobileMenuTrigger in header
+
+  const navItems = navItemsByRole[user.role] || [];
+
+  return (
+    <aside
+      className={cn(
+        'relative flex-col min-h-screen transition-all duration-300 ease-in-out hidden md:flex',
+        collapsed ? 'w-[72px]' : 'w-64'
+      )}
+      style={{
+        background: 'linear-gradient(180deg, hsl(215 70% 18%) 0%, hsl(215 70% 14%) 50%, hsl(220 60% 12%) 100%)',
+      }}
+    >
+      {/* Collapse toggle */}
+      <button
+        onClick={() => setCollapsed(!collapsed)}
+        className="absolute -right-3 top-20 z-10 w-6 h-6 rounded-full bg-primary border-2 border-background flex items-center justify-center text-primary-foreground shadow-lg hover:scale-110 transition-transform"
+      >
+        {collapsed ? <ChevronRight className="w-3.5 h-3.5" /> : <ChevronLeft className="w-3.5 h-3.5" />}
+      </button>
+
+      <SidebarContent
+        collapsed={collapsed}
+        user={user}
+        navItems={navItems}
+        location={location}
+        logout={logout}
+      />
     </aside>
   );
 }
