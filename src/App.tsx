@@ -14,6 +14,12 @@ import ReceptionistDashboard from "./pages/receptionist/ReceptionistDashboard";
 import PatientDashboard from "./pages/patient/PatientDashboard";
 import BookAppointmentPage from "./pages/appointments/BookAppointmentPage";
 import PatientRegistrationPage from "./pages/patients/PatientRegistrationPage";
+import PatientAppointmentsPage from "./pages/patient/PatientAppointmentsPage";
+import PatientRecordsPage from "./pages/patient/PatientRecordsPage";
+import PatientPrescriptionsPage from "./pages/patient/PatientPrescriptionsPage";
+import PatientLabReportsPage from "./pages/patient/PatientLabReportsPage";
+import PatientBillsPage from "./pages/patient/PatientBillsPage";
+import PatientHistoryPage from "./pages/patient/PatientHistoryPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -61,12 +67,12 @@ function AppRoutes() {
       {/* Patient Routes */}
       <Route path="/patient" element={<ProtectedRoute><PatientDashboard /></ProtectedRoute>} />
       <Route path="/patient/book" element={<ProtectedRoute><BookAppointmentPage /></ProtectedRoute>} />
-      <Route path="/patient/appointments" element={<ProtectedRoute><PatientDashboard /></ProtectedRoute>} />
-      <Route path="/patient/records" element={<ProtectedRoute><PatientDashboard /></ProtectedRoute>} />
-      <Route path="/patient/prescriptions" element={<ProtectedRoute><PatientDashboard /></ProtectedRoute>} />
-      <Route path="/patient/lab-reports" element={<ProtectedRoute><PatientDashboard /></ProtectedRoute>} />
-      <Route path="/patient/bills" element={<ProtectedRoute><PatientDashboard /></ProtectedRoute>} />
-      <Route path="/patient/history" element={<ProtectedRoute><PatientDashboard /></ProtectedRoute>} />
+      <Route path="/patient/appointments" element={<ProtectedRoute><PatientAppointmentsPage /></ProtectedRoute>} />
+      <Route path="/patient/records" element={<ProtectedRoute><PatientRecordsPage /></ProtectedRoute>} />
+      <Route path="/patient/prescriptions" element={<ProtectedRoute><PatientPrescriptionsPage /></ProtectedRoute>} />
+      <Route path="/patient/lab-reports" element={<ProtectedRoute><PatientLabReportsPage /></ProtectedRoute>} />
+      <Route path="/patient/bills" element={<ProtectedRoute><PatientBillsPage /></ProtectedRoute>} />
+      <Route path="/patient/history" element={<ProtectedRoute><PatientHistoryPage /></ProtectedRoute>} />
 
       {/* Catch-all */}
       <Route path="*" element={<NotFound />} />
