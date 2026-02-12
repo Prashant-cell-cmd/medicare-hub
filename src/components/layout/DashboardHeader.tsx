@@ -1,7 +1,8 @@
-import { Bell, Search, Menu } from 'lucide-react';
+import { Bell, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useAuth } from '@/contexts/AuthContext';
+import { MobileMenuTrigger } from './DashboardSidebar';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,15 +17,18 @@ export function DashboardHeader() {
   const { user } = useAuth();
 
   return (
-    <header className="h-16 bg-card border-b border-border px-6 flex items-center justify-between gap-4">
-      {/* Search */}
-      <div className="flex-1 max-w-md">
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-          <Input
-            placeholder="Search patients, appointments..."
-            className="pl-10 bg-secondary border-0"
-          />
+    <header className="h-16 bg-card border-b border-border px-4 md:px-6 flex items-center justify-between gap-4">
+      {/* Mobile menu + Search */}
+      <div className="flex items-center gap-2 flex-1">
+        <MobileMenuTrigger />
+        <div className="flex-1 max-w-md">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+            <Input
+              placeholder="Search patients, appointments..."
+              className="pl-10 bg-secondary border-0"
+            />
+          </div>
         </div>
       </div>
 
